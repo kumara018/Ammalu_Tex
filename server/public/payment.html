@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ammalu Tex - Payment</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="bootstrap.min.css">
+  
+</head>
+<body>
+  <header>
+    <h1>Welcome to Ammalu Tex!</h1>
+    <nav>
+        <ul>
+            
+         
+            <li id="sign-out-button-container" style="display: none;"><button onclick="signOut()">Sign Out</button></li>
+        </ul>
+      </nav>
+  </header>
+
+  <section>
+    <h2>Payment Options</h2>
+    <div id="payment-methods">
+      <button id="cod-btn">Cash on Delivery</button>
+      <button id="gpay-btn">GPay</button>
+      <button id="paytm-btn">Paytm</button>
+      <button id="phonepe-btn">PhonePe</button>
+      <button id="internet-banking-btn">Internet Banking</button>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2023 Ammalu Tex. All rights reserved.</p>
+  </footer>
+  
+  <script src="bootstrap.min.js"></script>
+
+  <script>
+
+    const isSignedIn = false; // Replace this with your own logic to check if the user is signed in
+
+    // Function to sign out
+    function signOut() {
+      // Perform sign-out logic (You need to implement your own sign-out logic)
+      alert('User signed out.'); // Replace this with your own sign-out logic
+
+      // Hide the sign-out button
+      document.getElementById('sign-out-button-container').style.display = 'none';
+    }
+
+    // Update the UI based on the sign-in status
+    if (isSignedIn) {
+      // User is signed in
+      document.getElementById('sign-out-button-container').style.display = 'block';
+    } else {
+      // User is signed out
+      document.getElementById('sign-out-button-container').style.display = 'none';
+    }
+    // Function to handle COD payment
+    function payCOD() {
+      // Replace with your own logic for COD payment
+      console.log('Processing Cash on Delivery payment...');
+      alert('Thank you for your order! Your payment will be collected upon delivery.');
+    }
+
+    // Function to handle GPay payment
+    function payGPay() {
+      // Replace with your own logic for GPay payment
+      console.log('Processing GPay payment...');
+      // Implement GPay payment integration here
+      // For simplicity, assume the payment is successful
+      alert('Thank you for your payment via GPay!');
+    }
+
+    // Function to handle Paytm payment
+    function payPaytm() {
+      // Replace with your own logic for Paytm payment
+      console.log('Processing Paytm payment...');
+      // Implement Paytm payment integration here
+      // For simplicity, assume the payment is successful
+      alert('Thank you for your payment via Paytm!');
+    }
+
+    // Function to handle PhonePe payment
+    function payPhonePe() {
+      // Replace with your own logic for PhonePe payment
+      console.log('Processing PhonePe payment...');
+      // Implement PhonePe payment integration here
+      // For simplicity, assume the payment is successful
+      alert('Thank you for your payment via PhonePe!');
+    }
+
+    // Function to handle Internet Banking payment
+    function payInternetBanking() {
+      // Replace with your own logic for Internet Banking payment
+      console.log('Processing Internet Banking payment...');
+      // Implement Internet Banking payment integration here
+      // For simplicity, assume the payment is successful
+      alert('Thank you for your payment via Internet Banking!');
+    }
+
+    // Event listeners for payment buttons
+    const codBtn = document.getElementById('cod-btn');
+    const gpayBtn = document.getElementById('gpay-btn');
+    const paytmBtn = document.getElementById('paytm-btn');
+    const phonepeBtn = document.getElementById('phonepe-btn');
+    const internetBankingBtn = document.getElementById('internet-banking-btn');
+
+    codBtn.addEventListener('click', payCOD);
+    gpayBtn.addEventListener('click', payGPay);
+    paytmBtn.addEventListener('click', payPaytm);
+    phonepeBtn.addEventListener('click', payPhonePe);
+    internetBankingBtn.addEventListener('click', payInternetBanking);
+  </script>
+</body>
+</html>

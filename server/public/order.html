@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ammalu Tex - Order</title>
+  <link rel="stylesheet" href="order.css">
+  <link rel="stylesheet" href="bootstrap.min.css">
+  
+</head>
+<body>
+  <header>
+    <h1>Welcome to Ammalu Tex!</h1>
+    <nav class="navbar navbar-expand-md navbar-light bg-light">
+        <a class="navbar-brand" href="index.html">Ammalu Tex</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="signin.html">Sign In</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="signup.html">Sign Up</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="products.html">Products</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="category.html">Category</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="cart.html">Cart</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="order.html">Order</a>
+            </li>
+          </ul>
+          <form class="form-inline ml-auto">
+            <input class="form-control mr-sm-2" type="text" id="search-input" placeholder="Search products">
+            <button class="btn btn-outline-primary my-2 my-sm-0" onclick="searchProducts(event)">Search</button>
+          </form>
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item" style="display: none;" id="sign-out-button-container">
+              <button class="btn btn-outline-danger" onclick="signOut()">Sign Out</button>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      
+  </header>
+
+  <section>
+    <h2>Your Order</h2>
+    <div id="order-items"></div>
+    <button id="add-item-btn">Add Item</button>
+    <button id="place-order-btn">Place Order</button>
+  </section>
+
+  <footer>
+    <p>&copy; 2023 Ammalu Tex. All rights reserved.</p>
+  </footer>
+
+  
+  <script src="bootstrap.min.js"></script>
+
+  <script>
+    const isSignedIn = false; // Replace this with your own logic to check if the user is signed in
+
+    // Function to sign out
+    function signOut() {
+      // Perform sign-out logic (You need to implement your own sign-out logic)
+      alert('User signed out.'); // Replace this with your own sign-out logic
+
+      // Hide the sign-out button
+      document.getElementById('sign-out-button-container').style.display = 'none';
+    }
+
+    // Update the UI based on the sign-in status
+    if (isSignedIn) {
+      // User is signed in
+      document.getElementById('sign-out-button-container').style.display = 'block';
+    } else {
+      // User is signed out
+      document.getElementById('sign-out-button-container').style.display = 'none';
+    }
+
+    
+    // Fetch order items from the server
+    fetch('/api/order')
+      .then(response => response.json())
+      .then(orderItems => {
+        const orderItemsContainer = document.getElementById('order-items');
+
+        // Render the order items
+        orderItems.forEach(item => {
+          const itemElement = document.createElement('div');
+          itemElement.innerHTML = `
+            <h3>${item.name}</h3>
+            <p>Price: $${item.price}</p>
+            <p>Quantity: ${item.quantity}</p>
+            <button class="edit-btn">Edit</button>
+            <button class="delete-btn">Delete</button>
+          `;
+          orderItemsContainer.appendChild(itemElement);
+        });
+
+        // Edit button event listeners
+        const editButtons = document.querySelectorAll('.edit-btn');
+        editButtons.forEach((button, index) => {
+          button.addEventListener('click', () => {
+            editItem(index);
+          });
+        });
+
+        // Delete button event listeners
+        const deleteButtons = document.querySelectorAll('.delete-btn');
+        deleteButtons.forEach((button, index) => {
+          button.addEventListener('click', () => {
+            deleteItem(index);
+          });
+        });
+      })
+      .catch(error => {
+        console.error('Error fetching order items:', error);
+      });
+
+    // Add item button event listener
+    const addItemBtn = document.getElementById('add-item-btn');
+    addItemBtn.addEventListener('click', addItem);
+
+    // Place order button event listener
+    const placeOrderBtn = document.getElementById('place-order-btn');
+    placeOrderBtn.addEventListener('click', placeOrder);
+
+    // Function to handle item editing
+    function editItem(index) {
+      // Replace with your own logic for editing an item
+      console.log('Editing item at index:', index);
+    }
+
+    // Function to handle item deletion
+    function deleteItem(index) {
+      // Replace with your own logic for deleting an item
+      console.log('Deleting item at index:', index);
+    }
+
+    // Function to handle adding a new item
+    function addItem() {
+      // Replace with your own logic for adding a new item
+      console.log('Adding a new item');
+    }
+
+    // Function to handle placing the order
+    function placeOrder() {
+      // Replace with your own logic for placing the order
+      console.log('Placing the order');
+      
+      // Redirect to the payment page
+      window.location.href = 'payment.html';
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ammalu Tex - Cart</title>
+  <link rel="stylesheet" href="bootstrap.min.css">
+  
+  
+  <link rel="stylesheet" href="cart.css">
+</head>
+<body>
+  <header>
+    <h1>Welcome to Ammalu Tex!</h1>
+    <nav class="navbar navbar-expand-md navbar-light bg-light">
+        <a class="navbar-brand" href="index.html">Ammalu Tex</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="signin.html">Sign In</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="signup.html">Sign Up</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="products.html">Products</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="category.html">Category</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="cart.html">Cart</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="order.html">Order</a>
+            </li>
+          </ul>
+          <form class="form-inline ml-auto">
+            <input class="form-control mr-sm-2" type="text" id="search-input" placeholder="Search products">
+            <button class="btn btn-outline-primary my-2 my-sm-0" onclick="searchProducts(event)">Search</button>
+          </form>
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item" style="display: none;" id="sign-out-button-container">
+              <button class="btn btn-outline-danger" onclick="signOut()">Sign Out</button>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      
+    </nav>
+  </header>
+
+  <section class="container">
+    <h2>Your Cart</h2>
+    <div id="cart-items"></div>
+    <button id="checkout-btn" class="btn btn-primary">Checkout</button>
+  </section>
+  
+
+  <footer>
+    <p>&copy; 2023 Ammalu Tex. All rights reserved.</p>
+  </footer>
+  
+  <script src="bootstrap.min.js"></script>
+
+  <script>
+
+    const isSignedIn = false; // Replace this with your own logic to check if the user is signed in
+
+    // Function to sign out
+    function signOut() {
+      // Perform sign-out logic (You need to implement your own sign-out logic)
+      alert('User signed out.'); // Replace this with your own sign-out logic
+
+      // Hide the sign-out button
+      document.getElementById('sign-out-button-container').style.display = 'none';
+    }
+
+    // Update the UI based on the sign-in status
+    if (isSignedIn) {
+      // User is signed in
+      document.getElementById('sign-out-button-container').style.display = 'block';
+    } else {
+      // User is signed out
+      document.getElementById('sign-out-button-container').style.display = 'none';
+    }
+
+    
+    // Fetch cart items from the server
+    fetch('/api/cart')
+      .then(response => response.json())
+      .then(cartItems => {
+        const cartItemsContainer = document.getElementById('cart-items');
+
+        // Render the cart items
+        cartItems.forEach(item => {
+          const itemElement = document.createElement('div');
+          itemElement.innerHTML = `
+            <h3>${item.name}</h3>
+            <p>Price: $${item.price}</p>
+            <p>Quantity: ${item.quantity}</p>
+          `;
+          cartItemsContainer.appendChild(itemElement);
+        });
+      })
+      .catch(error => {
+        console.error('Error fetching cart items:', error);
+      });
+
+    // Checkout button event listener
+    const checkoutBtn = document.getElementById('checkout-btn');
+    checkoutBtn.addEventListener('click', () => {
+      // Perform checkout logic
+      // Redirect to the order page
+      window.location.href = 'order.html';
+    });
+  </script>
+</body>
+</html>
